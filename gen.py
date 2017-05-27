@@ -1,5 +1,6 @@
 #!/usr/bin/env python2
 import re, os, hashlib, yaml
+import chardet
 
 line_count = 1
 
@@ -48,7 +49,7 @@ def gen_section(sect_yaml):
       sect.append(desc.strip())
       sect.append('\\end{mdframed}\\vspace{-10pt}')
     sect.append("\\begin{lstlisting}[language=%s]" % lang(extension))
-    sect.append(code.decode('utf-8'))
+    sect.append(code.decode(chardet.detect(code)['encoding']))
     sect.append("\\end{lstlisting}")
 
   return "\n".join(sect).encode('utf-8')
